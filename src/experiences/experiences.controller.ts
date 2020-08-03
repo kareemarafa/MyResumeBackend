@@ -2,8 +2,10 @@ import { Body, Controller, Delete, Get, Param, Patch, Post, UseGuards } from '@n
 import { ExperiencesService } from './experiences.service';
 import { Experience, ExperienceModel } from './expoeriences.interface';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
+import { ApiBearerAuth, ApiBody, ApiOperation, ApiTags } from '@nestjs/swagger';
 
 @Controller('experiences')
+@ApiTags('Experiences')
 export class ExperiencesController {
   constructor(private readonly service: ExperiencesService) {
   }
@@ -12,6 +14,7 @@ export class ExperiencesController {
    * Get All Items
    */
   @Get()
+  @ApiOperation({ summary: 'Get all items' })
   async getAllFeatureItems(): Promise<Experience[]> {
     return await this.service.getAllItems();
   }
@@ -21,6 +24,7 @@ export class ExperiencesController {
    * @param id Product ID
    */
   @Get(':id')
+  @ApiOperation({ summary: 'Get single item' })
   getFeatureItem(@Param('id') id: string): Promise<Experience> {
     return this.service.getOneItem(id);
   }
@@ -36,8 +40,11 @@ export class ExperiencesController {
    * @param current
    * @param companyLocation
    */
+  @ApiBearerAuth()
   @UseGuards(JwtAuthGuard)
   @Post()
+  @ApiOperation({ summary: 'Create feature item' })
+  @ApiBody({ type: [ExperienceModel] })
   async addFeatureItem(
     @Body('role') role: string,
     @Body('role_description') roleDescription: string[],
@@ -59,15 +66,17 @@ export class ExperiencesController {
       companyLocation,
     };
     const generatedId = await this.service.insertItem(submittedBody);
-    return { message: 'Item created successfully!', data: { id: generatedId, ...submittedBody } };
+    return { message: 'Item has been created successfully!', data: { id: generatedId, ...submittedBody } };
   }
 
   /**
    * Delete One Item
    * @param featureItemId featureItemId ID
    */
+  @ApiBearerAuth()
   @UseGuards(JwtAuthGuard)
   @Delete(':id')
+  @ApiOperation({ summary: 'Delete item' })
   async deleteFeatureItem(@Param('id') featureItemId: string) {
     return await this.service.deleteItem(featureItemId);
   }
@@ -85,8 +94,11 @@ export class ExperiencesController {
    * @param current
    * @param companyLocation
    */
+  @ApiBearerAuth()
   @UseGuards(JwtAuthGuard)
   @Patch(':id')
+  @ApiOperation({ summary: 'Update item' })
+  @ApiBody({ type: [ExperienceModel] })
   async updateFeatureItem(
     @Param('id') id: string,
     @Body('role') role: string,
