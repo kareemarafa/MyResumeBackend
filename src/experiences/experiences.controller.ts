@@ -47,13 +47,13 @@ export class ExperiencesController {
   @ApiBody({ type: [ExperienceModel] })
   async addFeatureItem(
     @Body('role') role: string,
-    @Body('role_description') roleDescription: string[],
-    @Body('company_name') companyName: string,
-    @Body('company_website') companyWebsite: string,
-    @Body('start_date') startDate: string,
-    @Body('end_date') endDate: string,
+    @Body('roleDescription') roleDescription: string[],
+    @Body('companyName') companyName: string,
+    @Body('companyWebsite') companyWebsite: string,
+    @Body('startDate') startDate: string,
+    @Body('endDate') endDate: string,
     @Body('current') current: boolean,
-    @Body('company_location') companyLocation: string,
+    @Body('companyLocation') companyLocation: string,
   ) {
     const submittedBody: ExperienceModel = {
       role,

@@ -25,8 +25,8 @@ export class ExperiencesService {
    */
   getAllItems(): Promise<Experience[]> {
     // Mapping and reformat the response
-    return this.FeatureModel.find().exec()
-      .then((items) => {
+    return this.FeatureModel.find({})
+      .then(items => {
         return items;
       });
   }
@@ -47,7 +47,7 @@ export class ExperiencesService {
     const updatedFeatureItem = await this.findItemByID(item.id);
     for (const key of Object.keys(item)) {
       if (item[key]) {
-        updatedFeatureItem[key] = item[key]
+        updatedFeatureItem[key] = item[key];
       }
     }
     updatedFeatureItem.save();
