@@ -8,7 +8,7 @@ import { EducationSchema } from './educations.interface';
   imports: [
     MongooseModule.forFeature([
       { name: 'Education', schema: EducationSchema },
-    ]),
+    ])
   ],
   controllers: [EducationsController],
   providers: [EducationsService]
