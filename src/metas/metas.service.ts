@@ -1,10 +1,10 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Meta, MetaModel } from './meta.interface';
+import { Meta, MetaModel } from './metas.interface';
 import { Model } from 'mongoose';
 
 @Injectable()
-export class MetaService {
+export class MetasService {
   constructor(
     @InjectModel('Meta') private readonly FeatureModel: Model<Meta>,
   ) {

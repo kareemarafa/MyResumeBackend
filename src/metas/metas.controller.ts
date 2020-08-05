@@ -1,13 +1,13 @@
 import { Body, Controller, Delete, Get, Param, Patch, Post, UseGuards } from '@nestjs/common';
-import { MetaService } from './meta.service';
-import { Meta, MetaModel } from './meta.interface';
+import { MetasService } from './metas.service';
+import { Meta, MetaModel } from './metas.interface';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { ApiBearerAuth, ApiBody, ApiOperation, ApiTags } from '@nestjs/swagger';
 
 @Controller('meta')
 @ApiTags('Meta')
-export class MetaController {
-  constructor(private readonly service: MetaService) {
+export class MetasController {
+  constructor(private readonly service: MetasService) {
   }
 
   /**
@@ -33,6 +33,7 @@ export class MetaController {
    * Insert One Item
    * @param key
    * @param value
+   * @param description
    */
   @ApiBearerAuth()
   @UseGuards(JwtAuthGuard)
@@ -42,10 +43,12 @@ export class MetaController {
   async addFeatureItem(
     @Body('key') key: string,
     @Body('value') value: string,
+    @Body('description') description: string,
   ) {
     const submittedBody: MetaModel = {
       key,
-      value
+      value,
+      description
     };
     const generatedId = await this.service.insertItem(submittedBody);
     return { message: 'Item has been created successfully!', data: { id: generatedId, ...submittedBody } };
@@ -69,6 +72,7 @@ export class MetaController {
    * @param id
    * @param key
    * @param value
+   * @param description
    */
   @ApiBearerAuth()
   @UseGuards(JwtAuthGuard)
@@ -79,11 +83,13 @@ export class MetaController {
     @Param('id') id: string,
     @Body('key') key: string,
     @Body('value') value: string,
+    @Body('description') description: string,
   ) {
     const submittedBody: MetaModel = {
       id,
       key,
-      value
+      value,
+      description,
     };
     return await this.service.updateItem(submittedBody);
   }

@@ -6,7 +6,7 @@ import { DatabaseModule } from './core/database/database.module';
 import { EducationsModule } from './educations/educations.module';
 import { CoursesModule } from './courses/courses.module';
 import { SkillsModule } from './skills/skills.module';
-import { MetaModule } from './meta/meta.module';
+import { MetasModule } from './metas/metas.module';
 
 
 @Module({
@@ -15,9 +15,9 @@ import { MetaModule } from './meta/meta.module';
     DatabaseModule,
     AuthModule,
     EducationsModule,
+    MetasModule,
     CoursesModule,
     SkillsModule,
-    MetaModule,
   ],
   controllers: [AppController],
 })
