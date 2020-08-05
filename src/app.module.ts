@@ -7,6 +7,7 @@ import { EducationsModule } from './educations/educations.module';
 import { CoursesModule } from './courses/courses.module';
 import { SkillsModule } from './skills/skills.module';
 import { MetasModule } from './metas/metas.module';
+import { TestimonialsModule } from './testimonials/testimonials.module';
 
 
 @Module({
@@ -18,6 +19,7 @@ import { MetasModule } from './metas/metas.module';
     MetasModule,
     CoursesModule,
     SkillsModule,
+    TestimonialsModule,
   ],
   controllers: [AppController],
 })
