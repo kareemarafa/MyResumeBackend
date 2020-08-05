@@ -1,12 +1,12 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Education, EducationModel } from './educations.interface';
+import { Meta, MetaModel } from './meta.interface';
 import { Model } from 'mongoose';
 
 @Injectable()
-export class EducationsService {
+export class MetaService {
   constructor(
-    @InjectModel('Education') private readonly FeatureModel: Model<Education>,
+    @InjectModel('Meta') private readonly FeatureModel: Model<Meta>,
   ) {
   }
 
@@ -14,7 +14,7 @@ export class EducationsService {
    * Insert One Item
    * @param item Add Item to database
    */
-  async insertItem(item: EducationModel) {
+  async insertItem(item: MetaModel) {
     const newItem = new this.FeatureModel(item);
     const result = await newItem.save();
     return result.id as string;
@@ -23,10 +23,9 @@ export class EducationsService {
   /**
    * Get All Items
    */
-  getAllItems(): Promise<Education[]> {
+  getAllItems(): Promise<Meta[]> {
     // Mapping and reformat the response
     return this.FeatureModel.find({})
-      .populate('courseList')
       .then(items => {
         return items;
       });
@@ -44,7 +43,7 @@ export class EducationsService {
    * Update One Item
    * @param item Body Data
    */
-  async updateItem(item: EducationModel) {
+  async updateItem(item: MetaModel) {
     const updatedFeatureItem = await this.findItemByID(item.id);
     for (const key of Object.keys(item)) {
       if (item[key]) {

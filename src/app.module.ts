@@ -7,6 +7,7 @@ import { DatabaseModule } from './core/database/database.module';
 import { EducationsModule } from './educations/educations.module';
 import { CoursesModule } from './courses/courses.module';
 import { SkillsModule } from './skills/skills.module';
+import { MetaModule } from './meta/meta.module';
 
 
 @Module({
@@ -16,10 +17,12 @@ import { SkillsModule } from './skills/skills.module';
     AuthModule,
     EducationsModule,
     CoursesModule,
-    SkillsModule
+    SkillsModule,
+    MetaModule
   ],
   controllers: [AppController],
   providers: [AppService],
 })
 export class AppModule {
 }
+
