@@ -1,6 +1,5 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { ExperiencesModule } from './experiences/experiences.module';
 import { AuthModule } from './auth/auth.module';
 import { DatabaseModule } from './core/database/database.module';
@@ -21,7 +20,6 @@ import { MetaModule } from './meta/meta.module';
     MetaModule
   ],
   controllers: [AppController],
-  providers: [AppService],
 })
 export class AppModule {
 }
