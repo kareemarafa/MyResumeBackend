@@ -17,7 +17,7 @@ import { MetaModule } from './meta/meta.module';
     EducationsModule,
     CoursesModule,
     SkillsModule,
-    MetaModule
+    MetaModule,
   ],
   controllers: [AppController],
 })
