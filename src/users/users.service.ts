@@ -43,8 +43,8 @@ export class UsersService {
    * Get One Item
    * @param username
    */
-  getOneItemByUsername(username: string) {
-    return this.FeatureModel.findOne({ username })
+  async getOneItemByUsername(username: string) {
+    return await this.FeatureModel.findOne({ username })
       .then(item => {
         return item;
       });
