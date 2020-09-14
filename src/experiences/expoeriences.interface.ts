@@ -1,5 +1,6 @@
 import * as mongoose from 'mongoose';
 import { ApiProperty } from '@nestjs/swagger';
+import * as mongoosePagination from 'mongoose-paginate-v2';
 
 export const ExperienceSchema = new mongoose.Schema({
   role: { type: String, required: true },
@@ -11,6 +12,8 @@ export const ExperienceSchema = new mongoose.Schema({
   endDate: { type: String },
   current: { type: Boolean },
 });
+
+ExperienceSchema.plugin(mongoosePagination);
 
 export interface Experience extends mongoose.Document {
   role: string;

@@ -1,8 +1,9 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Patch, Post, Query, UseGuards } from '@nestjs/common';
 import { ExperiencesService } from './experiences.service';
 import { Experience, ExperienceModel } from './expoeriences.interface';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { ApiBearerAuth, ApiBody, ApiOperation, ApiTags } from '@nestjs/swagger';
+import { PaginateResult } from 'mongoose';
 
 @Controller('experiences')
 @ApiTags('Experiences')
@@ -15,8 +16,11 @@ export class ExperiencesController {
    */
   @Get()
   @ApiOperation({ summary: 'Get all items' })
-  async getAllFeatureItems(): Promise<Experience[]> {
-    return await this.service.getAllItems();
+  async getAllFeatureItems(
+    @Query('page') page = 1,
+    @Query('limit') limit = 10
+  ): Promise<PaginateResult<Experience>> {
+    return await this.service.getAllItemPaginate(page, limit);
   }
 
   /**

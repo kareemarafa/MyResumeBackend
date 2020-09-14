@@ -1,12 +1,12 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Experience, ExperienceModel } from './expoeriences.interface';
-import { Model } from 'mongoose';
+import { PaginateModel } from 'mongoose';
 
 @Injectable()
 export class ExperiencesService {
   constructor(
-    @InjectModel('Experience') private readonly FeatureModel: Model<Experience>,
+    @InjectModel('Experience') private readonly FeatureModel: PaginateModel<Experience>,
   ) {
   }
 
@@ -29,6 +29,26 @@ export class ExperiencesService {
       .then(items => {
         return items;
       });
+  }
+
+
+  /**
+   * Find all messages in a channel
+   *
+   * @param {number} [page=1]
+   * @param {number} [limit=10]
+   * @returns
+   */
+  async getAllItemPaginate(page = 1, limit = 10) {
+    const options = {
+      populate: [
+        // Your foreign key fields to populate
+      ],
+      page: Number(page),
+      limit: Number(limit),
+    };
+    // Get the data from database
+    return await this.FeatureModel.paginate({}, options);
   }
 
   /**
@@ -61,9 +81,12 @@ export class ExperiencesService {
   async deleteItem(id: string) {
     const result = await this.FeatureModel.deleteOne({ _id: id }).exec();
     if (result.n === 0) {
-      throw new NotFoundException('Could not find item!');
+      throw new NotFoundException('Could not found featureItem assigned to this ID');
     } else {
-      return { message: 'Item Deleted Successfully!' };
+      return {
+        statusCode: 200,
+        message: 'Item Deleted',
+      };
     }
   }
 
