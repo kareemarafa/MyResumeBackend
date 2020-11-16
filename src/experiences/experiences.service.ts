@@ -39,7 +39,7 @@ export class ExperiencesService {
    * @param {number} [limit=10]
    * @returns
    */
-  async getAllItemPaginate(page = 1, limit = 10) {
+  async getAllItemWithPagination(page = 1, limit = 10) {
     const options = {
       populate: [
         // Your foreign key fields to populate
@@ -48,7 +48,7 @@ export class ExperiencesService {
       limit: Number(limit),
     };
     // Get the data from database
-    return await this.FeatureModel.paginate({}, options);
+    return await this.FeatureModel.paginate(null, options);
   }
 
   /**

@@ -18,9 +18,9 @@ export class ExperiencesController {
   @ApiOperation({ summary: 'Get all items' })
   async getAllFeatureItems(
     @Query('page') page = 1,
-    @Query('limit') limit = 10
+    @Query('limit') limit = 10,
   ): Promise<PaginateResult<Experience>> {
-    return await this.service.getAllItemPaginate(page, limit);
+    return await this.service.getAllItemWithPagination(page, limit);
   }
 
   /**
@@ -70,7 +70,11 @@ export class ExperiencesController {
       companyLocation,
     };
     const generatedId = await this.service.insertItem(submittedBody);
-    return { message: 'Item has been created successfully!', data: { id: generatedId, ...submittedBody } };
+    return {
+      message: 'Item has been created successfully!',
+      statusCode: 200,
+      data: { id: generatedId, ...submittedBody },
+    };
   }
 
   /**
