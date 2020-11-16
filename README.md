@@ -59,6 +59,17 @@ $ npm run test:e2e
 # test coverage
 $ npm run test:cov
 ```
+## Clone repo from Heroku
+```
+$ heroku git:clone -a resume-nest-api
+$ cd resume-nest-api
+```
+## Deployment to Heroku
+```
+$ git add .
+$ git commit -am "make it better"
+$ git push heroku master
+```
 
 ## Support
 
