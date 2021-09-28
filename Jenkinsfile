@@ -5,11 +5,12 @@ pipeline {
     }
 
     stages {
-        stage("Deploy to Production") {
+        stage("Production") {
             when {
-                branch 'master'
+                branch 'production'
             }
             steps {
+                echo 'Building the application...'
                 sh 'rm -rf ./node_modules ./package-lock.json ./dist'
                 sh 'scp -o stricthostkeychecking=no -r ./* karafa@kareemarafa.com:/var/www/api.kareemarafa.com/'
                 sh 'ssh -o stricthostkeychecking=no karafa@kareemarafa.com "cd /var/www/api.kareemarafa.com && npm install && npm run build"'
