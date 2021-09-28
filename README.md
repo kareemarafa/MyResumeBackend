@@ -1,4 +1,4 @@
-## Description...2...3
+## Description
 
 [Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
 
